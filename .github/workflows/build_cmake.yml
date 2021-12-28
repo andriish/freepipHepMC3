@@ -63,7 +63,7 @@ jobs:
       matrix:
         include:
           - { sys: mingw64, env: x86_64 }
-          - { sys: mingw32, env: i686 }
+ #         - { sys: mingw32, env: i686 }
     steps:
     # Force version because of https://github.com/msys2/setup-msys2/issues/167
     - uses: msys2/setup-msys2@v2.4.2
@@ -79,54 +79,54 @@ jobs:
     - name: Install dependencies
       run:  python -m pip install --upgrade pip twine wheel six  requests
 
-    - name: Build
-      run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
+#    - name: Build
+#      run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
 
 
 
 
-  nativegithubIntel:
-    name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.8"]
-        config:
-        - {
-            name: "Windows Latest MSVC",
-            os: windows-latest,
-            cc: "icc", cxx: "icpc", fc: "ifort"
-          }
-#        - {
-#            name: "macOS macos-10.15 Clang",
-#            os: macos-10.15,
-#            cc: "clang", cxx: "clang++"
-#          }
-#        - {
-#            name: "macOS macos-11.0 Clang",
-#            os: macos-11,
-#            cc: "clang", cxx: "clang++"
-#          }
-    steps:
-    - uses: actions/checkout@v2
+  #nativegithubIntel:
+    #name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
+    #runs-on: ${{ matrix.config.os }}
+    #strategy:
+      #fail-fast: false
+      #matrix:
+        #python-version: ["3.8"]
+        #config:
+        #- {
+            #name: "Windows Latest MSVC",
+            #os: windows-latest,
+            #cc: "icc", cxx: "icpc", fc: "ifort"
+          #}
+##        - {
+##            name: "macOS macos-10.15 Clang",
+##            os: macos-10.15,
+##            cc: "clang", cxx: "clang++"
+##          }
+##        - {
+##            name: "macOS macos-11.0 Clang",
+##            os: macos-11,
+##            cc: "clang", cxx: "clang++"
+##          }
+    #steps:
+    #- uses: actions/checkout@v2
     
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-          python-version: "${{ matrix.python-version }}"
+    #- name: Set up Python
+      #uses: actions/setup-python@v2
+      #with:
+          #python-version: "${{ matrix.python-version }}"
 
-    - name: Install dependencies
-      run:  python -m pip install --upgrade pip twine wheel six  requests tbb tbb-devel intel-fortran-rt dpcpp-cpp-rt intel-opencl-rt
+    #- name: Install dependencies
+      #run:  python -m pip install --upgrade pip twine wheel six  requests tbb tbb-devel intel-fortran-rt dpcpp-cpp-rt intel-opencl-rt
 
-    - name: Build
-      run:  |
-        pip list -v
-        dir "C:/Program Files (x86)/"
-        dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages
-        dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\intel_fortran_rt-2022.0.0.dist-info
-        "C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
-        python do.py  3.2.5 master 1  auto no tempbuilddir2
+    #- name: Build
+      #run:  |
+        #pip list -v
+        #dir "C:/Program Files (x86)/"
+        #dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages
+        #dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\intel_fortran_rt-2022.0.0.dist-info
+        #"C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
+        #python do.py  3.2.5 master 1  auto no tempbuilddir2
 
 #        type "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
 
