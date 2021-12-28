@@ -5,15 +5,15 @@ on: [push, pull_request]
 
 
 jobs:
-  manulinuxdocker:
-    name: "Manulinux2010"
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      uses: ./.github/workflows/manulinux2010_x86_64
+#  manulinuxdocker:
+#    name: "Manulinux2010"
+#    runs-on: ubuntu-latest
+#    strategy:
+#      fail-fast: false
+#    steps:
+#    - uses: actions/checkout@v2
+#    - name: Build
+#      uses: ./.github/workflows/manulinux2010_x86_64
 
   nativegithub:
     name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
@@ -54,39 +54,38 @@ jobs:
       run:  python do.py  3.2.5 windows 1  auto no tempbuilddir2
 
 
-  nativegithubMINGW:
-#    name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
-    strategy:
-      matrix:
-        platform: [x86, x64]
-        hardlinks: [0, 1]
-    runs-on: windows-latest
-    name: 'Cygwin: ${{ matrix.platform }} / hardlinks${{ matrix.hardlinks }}'
-    defaults:
-      run:
-        shell: pwsh
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install Cygwin
-      uses: egor-tensin/setup-cygwin@v3
-    - name: Set up MinGW
-      id: setup
-      uses: ./
-      with:
-          platform: '${{ matrix.platform }}'
-          cygwin: 1
-          cc: 1
-          hardlinks: '${{ matrix.hardlinks }}'
+  #nativegithubMINGW:
+    #strategy:
+      #matrix:
+        #platform: [x86, x64]
+        #hardlinks: [0, 1]
+    #runs-on: windows-latest
+    #name: 'Cygwin: ${{ matrix.platform }} / hardlinks${{ matrix.hardlinks }}'
+    #defaults:
+      #run:
+        #shell: pwsh
+    #steps:
+    #- uses: actions/checkout@v2
+    #- name: Install Cygwin
+      #uses: egor-tensin/setup-cygwin@v3
+    #- name: Set up MinGW
+      #id: setup
+      #uses: ./
+      #with:
+          #platform: '${{ matrix.platform }}'
+          #cygwin: 1
+          #cc: 1
+          #hardlinks: '${{ matrix.hardlinks }}'
     
-#    - name: Set up Python
-#      uses: actions/setup-python@v2
-#      with:
-#          python-version: "${{ matrix.python-version }}"
+##    - name: Set up Python
+##      uses: actions/setup-python@v2
+##      with:
+##          python-version: "${{ matrix.python-version }}"
 
-    - name: Install dependencies
-      run:  python -m pip install --upgrade pip twine wheel six  requests
+    #- name: Install dependencies
+      #run:  python -m pip install --upgrade pip twine wheel six  requests
 
-    - name: Build
-      run:  python do.py  3.2.5 windows 1  auto no tempbuilddir2
+    #- name: Build
+      #run:  python do.py  3.2.5 windows 1  auto no tempbuilddir2
 
 
