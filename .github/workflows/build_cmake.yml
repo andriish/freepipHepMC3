@@ -54,38 +54,78 @@ jobs:
       run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
 
 
-  nativegithubMINGW:
+  nativegithubIntel:
+    name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
+    runs-on: ${{ matrix.config.os }}
     strategy:
+      fail-fast: false
       matrix:
-        platform: [x86, x64]
-        hardlinks: [0, 1]
-    runs-on: windows-latest
-    name: 'Cygwin: ${{ matrix.platform }} / hardlinks${{ matrix.hardlinks }}'
-    defaults:
-      run:
-        shell: pwsh
+        python-version: ["2.7"]
+        config:
+        - {
+            name: "Windows Latest MSVC",
+            os: windows-latest,
+            cc: "icc", cxx: "icpc", fc: "ifort"
+          }
+#        - {
+#            name: "macOS macos-10.15 Clang",
+#            os: macos-10.15,
+#            cc: "clang", cxx: "clang++"
+#          }
+#        - {
+#            name: "macOS macos-11.0 Clang",
+#            os: macos-11,
+#            cc: "clang", cxx: "clang++"
+#          }
     steps:
     - uses: actions/checkout@v2
-    - name: Install Cygwin
-      uses: egor-tensin/setup-cygwin@v3
-    - name: Set up MinGW
-      id: setup
-      uses: ./
-      with:
-          platform: '${{ matrix.platform }}'
-          cygwin: 1
-          cc: 1
-          hardlinks: '${{ matrix.hardlinks }}'
     
-#    - name: Set up Python
-#      uses: actions/setup-python@v2
-#      with:
-#          python-version: "${{ matrix.python-version }}"
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+          python-version: "${{ matrix.python-version }}"
 
     - name: Install dependencies
-      run:  python -m pip install --upgrade pip twine wheel six  requests
+      run:  python -m pip install --upgrade pip twine wheel six  requests  intel-fortran-rt dpcpp-cpp-rt
 
     - name: Build
-      run:  python do.py  3.2.5 windows 1  auto no tempbuilddir2
+      run:  |
+        "C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
+        python do.py  3.2.5 master 1  auto no tempbuilddir2
+
+
+  #nativegithubMINGW:
+    #strategy:
+      #matrix:
+        #platform: [x86, x64]
+        #hardlinks: [0, 1]
+    #runs-on: windows-latest
+    #name: 'Cygwin: ${{ matrix.platform }} / hardlinks${{ matrix.hardlinks }}'
+    #defaults:
+      #run:
+        #shell: pwsh
+    #steps:
+    #- uses: actions/checkout@v2
+    #- name: Install Cygwin
+      #uses: egor-tensin/setup-cygwin@v3
+    #- name: Set up MinGW
+      #id: setup
+      #uses: ./
+      #with:
+          #platform: '${{ matrix.platform }}'
+          #cygwin: 1
+          #cc: 1
+          #hardlinks: '${{ matrix.hardlinks }}'
+    
+##    - name: Set up Python
+##      uses: actions/setup-python@v2
+##      with:
+##          python-version: "${{ matrix.python-version }}"
+
+    #- name: Install dependencies
+      #run:  python -m pip install --upgrade pip twine wheel six  requests
+
+    #- name: Build
+      #run:  python do.py  3.2.5 windows 1  auto no tempbuilddir2
 
 

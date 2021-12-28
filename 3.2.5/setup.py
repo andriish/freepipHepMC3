@@ -244,7 +244,7 @@ class hm3_build_ext(build_ext_orig):
         ctest_exe = self.get_ctest_exe()
         cmake_args = [
             "CMakeLists.txt",
-            "-DHEPMC3_BUILD_EXAMPLES:BOOL=OFF",
+            "-DHEPMC3_BUILD_EXAMPLES:BOOL=ON",
             "-DHEPMC3_INSTALL_INTERFACES:BOOL=ON",
             "-DHEPMC3_ENABLE_SEARCH:BOOL=ON",
             "-DHEPMC3_BUILD_DOCS:BOOL=OFF",
