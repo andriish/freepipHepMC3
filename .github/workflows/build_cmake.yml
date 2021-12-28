@@ -93,6 +93,8 @@ jobs:
         pip list -v
         dir "C:/Program Files (x86)/"
         type "C:\Program Files (x86)\Intel\oneAPI\setvars.bat"
+        dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages
+        dir c:\hostedtoolcache\windows\python\3.8.10\x64\lib\site-packages\intel-fortran-rt
         "C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
         python do.py  3.2.5 master 1  auto no tempbuilddir2
 
