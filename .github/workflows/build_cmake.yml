@@ -15,43 +15,43 @@ jobs:
 #    - name: Build
 #      uses: ./.github/workflows/manulinux2010_x86_64
 
-  nativegithub:
-    name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["2.7"]
-        config:
-        - {
-            name: "Windows Latest MSVC",
-            os: windows-latest,
-            cc: "cl", cxx: "cl",
-            environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-          }
-#        - {
-#            name: "macOS macos-10.15 Clang",
-#            os: macos-10.15,
-#            cc: "clang", cxx: "clang++"
-#          }
-#        - {
-#            name: "macOS macos-11.0 Clang",
-#            os: macos-11,
-#            cc: "clang", cxx: "clang++"
-#          }
-    steps:
-    - uses: actions/checkout@v2
+  #nativegithub:
+    #name: "${{ matrix.config.name }} ${{ matrix.python-version }}"
+    #runs-on: ${{ matrix.config.os }}
+    #strategy:
+      #fail-fast: false
+      #matrix:
+        #python-version: ["2.7"]
+        #config:
+        #- {
+            #name: "Windows Latest MSVC",
+            #os: windows-latest,
+            #cc: "cl", cxx: "cl",
+            #environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+          #}
+##        - {
+##            name: "macOS macos-10.15 Clang",
+##            os: macos-10.15,
+##            cc: "clang", cxx: "clang++"
+##          }
+##        - {
+##            name: "macOS macos-11.0 Clang",
+##            os: macos-11,
+##            cc: "clang", cxx: "clang++"
+##          }
+    #steps:
+    #- uses: actions/checkout@v2
     
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-          python-version: "${{ matrix.python-version }}"
+    #- name: Set up Python
+      #uses: actions/setup-python@v2
+      #with:
+          #python-version: "${{ matrix.python-version }}"
 
-    - name: Install dependencies
-      run:  python -m pip install --upgrade pip twine wheel six  requests
+    #- name: Install dependencies
+      #run:  python -m pip install --upgrade pip twine wheel six  requests
 
-    - name: Build
-      run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
+    #- name: Build
+      #run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
 
 
   nativegithubIntel:
@@ -90,6 +90,7 @@ jobs:
 
     - name: Build
       run:  |
+        type "C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
         "C:/Program Files (x86)/Intel/oneAPI/setvars.bat"
         python do.py  3.2.5 master 1  auto no tempbuilddir2
 
