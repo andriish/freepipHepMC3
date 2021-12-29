@@ -254,7 +254,7 @@ class hm3_build_ext(build_ext_orig):
             "-DHEPMC3_ENABLE_TEST:BOOL=OFF",
             self.get_cmake_python_flags(),
         ]
- #           "-G \"MinGW Makefiles\"",        
+#           "-G \"MinGW Makefiles\"",        
         ps = platform.system()
         bits = platform.architecture()[0]
         # Workaround for the manulinux
