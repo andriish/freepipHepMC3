@@ -284,6 +284,7 @@ class hm3_build_ext(build_ext_orig):
 #            cmake_args.append("-Thost=x64")
 #            cmake_args.append("-A")
 #            cmake_args.append("x64")
+        cmake_args.append("-DPython_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
         self.spawn([cmake_exe, str(cwd)] + cmake_args)
 
         if not self.dry_run:
