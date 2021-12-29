@@ -53,7 +53,7 @@ jobs:
     #- name: Build
       #run:  python do.py  3.2.5 master 1  auto no tempbuilddir2
   mingw:
-    name: "🐍 3 • windows-latest • ${{ matrix.sys }}"
+    name: "windows-latest  ${{ matrix.sys }}"
     runs-on: windows-latest
     defaults:
       run:
