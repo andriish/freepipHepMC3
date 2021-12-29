@@ -293,7 +293,7 @@ class hm3_build_ext(build_ext_orig):
             self.spawn([cmake_exe, "--build", "."] + build_args)
             print(os.listdir("outputs"))
             print(os.listdir("outputs/lib"))
-            print(os.listdir("outputs/lib/libHepMC3.dll"))
+            #print(os.listdir("outputs/lib/libHepMC3.dll"))
             ctest_args = []
             v = sys.version_info
             if ps == "Windows":
