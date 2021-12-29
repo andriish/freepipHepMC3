@@ -252,10 +252,9 @@ class hm3_build_ext(build_ext_orig):
             "-DHEPMC3_ENABLE_PYTHON:BOOL=ON",
             "-DHEPMC3_ENABLE_ROOTIO:BOOL=OFF",
             "-DCMAKE_BUILD_TYPE=Release",
-            "-DHEPMC3_ENABLE_TEST:BOOL=OFF",
+            "-DHEPMC3_ENABLE_TEST:BOOL=ON",
             self.get_cmake_python_flags(),
-        ]
-#           "-G \"MinGW Makefiles\"",        
+        ]       
         ps = platform.system()
         bits = platform.architecture()[0]
         # Workaround for the manulinux
@@ -280,13 +279,13 @@ class hm3_build_ext(build_ext_orig):
             if bits == "64bit":
                 cmake_args.append("-DLIB_SUFFIX=64")
                 cmake_args.append("-DCMAKE_INSTALL_LIBDIR=lib64")
-#        if ps == "Windows":
-#            # FIXME: detect arch
-#            cmake_args.append("-Thost=x64")
-#            cmake_args.append("-A")
-#            cmake_args.append("x64")
-        cmake_args.append("-DPython2_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
-        cmake_args.append("-DPython3_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
+        if ps == "Windows" and (len(os.environ['MSYSTEM']) == 0):
+            # FIXME: detect arch
+            cmake_args.append("-Thost=x64")
+            cmake_args.append("-A")
+            cmake_args.append("x64")
+
+        cmake_args.append("-DPython"+str(sys.version_info[0])+"_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
         self.spawn([cmake_exe, str(cwd)] + cmake_args)
 
         if not self.dry_run:
@@ -294,6 +293,7 @@ class hm3_build_ext(build_ext_orig):
             self.spawn([cmake_exe, "--build", "."] + build_args)
             print(os.listdir("outputs"))
             print(os.listdir("outputs/lib"))
+            print(os.listdir("outputs/lib/libHepMC3.dll"))
             ctest_args = []
             v = sys.version_info
             if ps == "Windows":
