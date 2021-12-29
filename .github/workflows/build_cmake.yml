@@ -72,6 +72,7 @@ jobs:
         install: >-
           git
           mingw-w64-${{matrix.env}}-gcc
+          mingw-w64-${{matrix.env}}-ninja
           mingw-w64-${{matrix.env}}-python-pip
           mingw-w64-${{matrix.env}}-cmake
           mingw-w64-${{matrix.env}}-make
