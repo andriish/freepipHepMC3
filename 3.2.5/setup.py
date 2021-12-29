@@ -192,8 +192,8 @@ class hm3_install_lib(install_lib_orig):
         v = sys.version_info
         versionstring = str(v[0]) + "." + str(v[1]) + "." + str(v[2])
         shutil.copytree(
-            os.path.join(cwd, "python", versionstring, "pyHepMC3"),
-            os.path.join(cwd, self.build_dir, "pyHepMC3"),
+            os.path.normpath(os.path.join(cwd, "python", versionstring, "pyHepMC3")),
+            os.path.normpath(os.path.join(cwd, self.build_dir, "pyHepMC3")),
         )
         print(install_lib_orig.get_outputs(self))
         print(self.install_dir)
