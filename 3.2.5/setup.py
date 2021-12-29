@@ -285,6 +285,7 @@ class hm3_build_ext(build_ext_orig):
 #            cmake_args.append("-A")
 #            cmake_args.append("x64")
         cmake_args.append("-DPython_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
+        cmake_args.append("-DPython3_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
         cmake_args.append("-DPython_FIND_STRATEGY=LOCATION")
         self.spawn([cmake_exe, str(cwd)] + cmake_args)
 
