@@ -279,7 +279,7 @@ class hm3_build_ext(build_ext_orig):
             if bits == "64bit":
                 cmake_args.append("-DLIB_SUFFIX=64")
                 cmake_args.append("-DCMAKE_INSTALL_LIBDIR=lib64")
-        if ps == "Windows" and (len(os.environ['MSYSTEM']) == 0):
+        if ps == "Windows" and (len(os.environ.get('MSYSTEM')) == 0):
             # FIXME: detect arch
             cmake_args.append("-Thost=x64")
             cmake_args.append("-A")
