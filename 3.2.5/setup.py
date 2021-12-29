@@ -162,8 +162,9 @@ def get_hepmc3_libraries():
                 ],
             )
         ]
-    if ps == "Windows":
-        return [
+    if ps == "Windows" :
+        if  (len(os.environ.get('MSYSTEM')) == 0):
+          return [
             (
                 lib,
                 [
@@ -173,7 +174,22 @@ def get_hepmc3_libraries():
                     os.path.normpath( "outputs/" + lib + "/HepMC3-static.lib"),
                 ],
             )
-        ]
+          ]
+        else:
+          return [
+            (
+                lib,
+                [
+                    os.path.normpath("outputs/" + lib + "/HepMC3.dll.a"),
+                    os.path.normpath("outputs/" + lib + "/HepMC3.dll"),
+                    os.path.normpath("outputs/" + lib + "/HepMC3search.dll.a"),
+                    os.path.normpath("outputs/" + lib + "/HepMC3search.dll"),
+                    os.path.normpath( "outputs/" + lib + "/HepMC3search-static.a"),
+                    os.path.normpath( "outputs/" + lib + "/HepMC3-static.a"),
+                ],
+            )
+          ]  
+          
     return [
         (
             lib,
