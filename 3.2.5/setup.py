@@ -180,12 +180,12 @@ def get_hepmc3_libraries():
             (
                 lib,
                 [
-                    os.path.normpath("outputs/" + lib + "/HepMC3.dll.a"),
-                    os.path.normpath("outputs/" + lib + "/HepMC3.dll"),
-                    os.path.normpath("outputs/" + lib + "/HepMC3search.dll.a"),
-                    os.path.normpath("outputs/" + lib + "/HepMC3search.dll"),
-                    os.path.normpath( "outputs/" + lib + "/HepMC3search-static.a"),
-                    os.path.normpath( "outputs/" + lib + "/HepMC3-static.a"),
+                    os.path.normpath("outputs/" + lib + "/libHepMC3.dll.a"),
+                    os.path.normpath("outputs/" + lib + "/libHepMC3.dll"),
+                    os.path.normpath("outputs/" + lib + "/libHepMC3search.dll.a"),
+                    os.path.normpath("outputs/" + lib + "/libHepMC3search.dll"),
+                    os.path.normpath( "outputs/" + lib + "/libHepMC3search-static.a"),
+                    os.path.normpath( "outputs/" + lib + "/libHepMC3-static.a"),
                 ],
             )
           ]  
