@@ -81,7 +81,9 @@ jobs:
           mingw-w64-${{matrix.env}}-make
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run:  python -m pip install --upgrade pip twine wheel six  requests
+      run:  |
+        dir D:/a/_temp/msys/msys64/mingw64/bin/
+        python -m pip install --upgrade pip twine wheel six  requests
 
     - name: Build
       run:  python do.py  3.2.5 mingw 1  auto no tempbuilddir2
