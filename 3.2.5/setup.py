@@ -149,15 +149,16 @@ def get_library_location():
 def get_hepmc3_libraries():
     lib = get_library_location()
     ps = platform.system()
+    print(ps)
     if ps == "Darwin":
         return [
             (
                 lib,
                 [
-                    "outputs/" + lib + "/libHepMC3.dylib",
-                    "outputs/" + lib + "/libHepMC3search.dylib",
-                    "outputs/" + lib + "/libHepMC3-static.a",
-                    "outputs/" + lib + "/libHepMC3search-static.a",
+                   os.path.normpath( "outputs/" + lib + "/libHepMC3.dylib"),
+                   os.path.normpath( "outputs/" + lib + "/libHepMC3search.dylib"),
+                   os.path.normpath( "outputs/" + lib + "/libHepMC3-static.a"),
+                   os.path.normpath( "outputs/" + lib + "/libHepMC3search-static.a"),
                 ],
             )
         ]
@@ -166,10 +167,10 @@ def get_hepmc3_libraries():
             (
                 lib,
                 [
-                    "outputs/" + lib + "/HepMC3.dll",
-                    "outputs/" + lib + "/HepMC3search.dll",
-                    "outputs/" + lib + "/HepMC3search-static.lib",
-                    "outputs/" + lib + "/HepMC3-static.lib",
+                    os.path.normpath("outputs/" + lib + "/HepMC3.dll"),
+                    os.path.normpath("outputs/" + lib + "/HepMC3search.dll"),
+                    os.path.normpath( "outputs/" + lib + "/HepMC3search-static.lib"),
+                    os.path.normpath( "outputs/" + lib + "/HepMC3-static.lib"),
                 ],
             )
         ]
@@ -177,10 +178,10 @@ def get_hepmc3_libraries():
         (
             lib,
             [
-                "outputs/" + lib + "/libHepMC3.so",
-                "outputs/" + lib + "/libHepMC3.so.3",
-                "outputs/" + lib + "/libHepMC3search.so",
-                "outputs/" + lib + "/libHepMC3search.so.4",
+                os.path.normpath("outputs/" + lib + "/libHepMC3.so"),
+                os.path.normpath("outputs/" + lib + "/libHepMC3.so.3"),
+                os.path.normpath("outputs/" + lib + "/libHepMC3search.so"),
+                os.path.normpath("outputs/" + lib + "/libHepMC3search.so.4"),
             ],
         )
     ]
@@ -284,9 +285,8 @@ class hm3_build_ext(build_ext_orig):
 #            cmake_args.append("-Thost=x64")
 #            cmake_args.append("-A")
 #            cmake_args.append("x64")
-        cmake_args.append("-DPython_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
+        cmake_args.append("-DPython2_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
         cmake_args.append("-DPython3_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
-        cmake_args.append("-DPython_FIND_STRATEGY=LOCATION")
         self.spawn([cmake_exe, str(cwd)] + cmake_args)
 
         if not self.dry_run:
@@ -299,8 +299,8 @@ class hm3_build_ext(build_ext_orig):
                 ctest_args.append("Debug")
                 ctest_args.append("-j1")
             # Travis+Windows bug?
-          #  if ps != "Darwin" and not (ps == "Windows" and v[0] == 3 and v[1] == 8):
-           #     self.spawn([ctest_exe, ".", "--output-on-failure"] + ctest_args)
+            if ps != "Darwin" and not (ps == "Windows" and v[0] == 3 and v[1] == 8):
+                self.spawn([ctest_exe, ".", "--output-on-failure"] + ctest_args)
         os.chdir(str(cwd))
 
 
