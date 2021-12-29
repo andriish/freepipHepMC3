@@ -231,7 +231,7 @@ class hm3_build_ext(build_ext_orig):
 
     def get_cmake_python_flags(self):
         pv = sys.version_info
-        return "-DHEPMC3_PYTHON_VERSIONS=" + str(pv[0]) + "." + str(pv[1] + "." + str(pv[2])
+        return "-DHEPMC3_PYTHON_VERSIONS=" + str(pv[0]) + "." + str(pv[1]) + "." + str(pv[2])
 
     def run(self):
         for ext in self.extensions:
