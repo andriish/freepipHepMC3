@@ -292,6 +292,8 @@ class hm3_build_ext(build_ext_orig):
         if not self.dry_run:
             build_args = []
             self.spawn([cmake_exe, "--build", "."] + build_args)
+            print(os.listdir("outputs"))
+            print(os.listdir("outputs/lib"))
             ctest_args = []
             v = sys.version_info
             if ps == "Windows":
