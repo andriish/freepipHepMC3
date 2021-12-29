@@ -268,7 +268,7 @@ class hm3_build_ext(build_ext_orig):
             "-DHEPMC3_ENABLE_PYTHON:BOOL=ON",
             "-DHEPMC3_ENABLE_ROOTIO:BOOL=OFF",
             "-DCMAKE_BUILD_TYPE=Release",
-            "-DHEPMC3_ENABLE_TEST:BOOL=OFF",
+            "-DHEPMC3_ENABLE_TEST:BOOL=ON",
             self.get_cmake_python_flags(),
         ]       
         ps = platform.system()
