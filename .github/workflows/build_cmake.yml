@@ -75,6 +75,7 @@ jobs:
           mingw-w64-${{matrix.env}}-ninja
           mingw-w64-${{matrix.env}}-python-pip
           mingw-w64-${{matrix.env}}-python
+          mingw-w64-${{matrix.env}}-python-numpy
           mingw-w64-${{matrix.env}}-python-setuptools
           mingw-w64-${{matrix.env}}-cmake
           mingw-w64-${{matrix.env}}-make
