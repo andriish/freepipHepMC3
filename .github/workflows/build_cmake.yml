@@ -2,7 +2,6 @@ name: CMake Build Matrix
 
 on: [push, pull_request]
 
-
 jobs:
   #manulinuxdocker:
     #name: "Manulinux2010"
