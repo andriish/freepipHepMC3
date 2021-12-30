@@ -149,7 +149,6 @@ def get_library_location():
 def get_hepmc3_libraries():
     lib = get_library_location()
     ps = platform.system()
-    print(ps)
     if ps == "Darwin":
         return [
             (
@@ -163,7 +162,7 @@ def get_hepmc3_libraries():
             )
         ]
     if ps == "Windows" :
-        if  (len(os.environ.get('MSYSTEM')) == 0):
+        if  (os.environ.get('MSYSTEM') is None):
           return [
             (
                 lib,
@@ -248,7 +247,7 @@ class hm3_build_ext(build_ext_orig):
 
     def get_cmake_python_flags(self):
         pv = sys.version_info
-        return "-DHEPMC3_PYTHON_VERSIONS=" + str(pv[0]) + "." + str(pv[1]) + "." + str(pv[2])
+        return "-DHEPMC3_PYTHON_VERSIONS=" + str(pv[0]) + "." + str(pv[1])
 
     def run(self):
         for ext in self.extensions:
@@ -270,7 +269,7 @@ class hm3_build_ext(build_ext_orig):
             "-DCMAKE_BUILD_TYPE=Release",
             "-DHEPMC3_ENABLE_TEST:BOOL=ON",
             self.get_cmake_python_flags(),
-        ]       
+        ]
         ps = platform.system()
         bits = platform.architecture()[0]
         # Workaround for the manulinux
@@ -295,12 +294,11 @@ class hm3_build_ext(build_ext_orig):
             if bits == "64bit":
                 cmake_args.append("-DLIB_SUFFIX=64")
                 cmake_args.append("-DCMAKE_INSTALL_LIBDIR=lib64")
-        if ps == "Windows" and (len(os.environ.get('MSYSTEM')) == 0):
+        if ps == "Windows" and (os.environ.get('MSYSTEM') is None):
             # FIXME: detect arch
             cmake_args.append("-Thost=x64")
             cmake_args.append("-A")
             cmake_args.append("x64")
-
         cmake_args.append("-DPython"+str(sys.version_info[0])+"_ROOT_DIR="+ os.path.dirname(sysconfig.get_path("scripts")))
         self.spawn([cmake_exe, str(cwd)] + cmake_args)
 
@@ -314,7 +312,7 @@ class hm3_build_ext(build_ext_orig):
                 ctest_args.append("Debug")
                 ctest_args.append("-j1")
             # Travis+Windows bug?
-            if ps != "Darwin" and not (ps == "Windows" and v[0] == 3 and v[1] == 8):
+            if ps != "Darwin" and not (ps == "Windows" and v[0] == 3 and v[1] == 8) and (os.environ.get('MSYSTEM') is  None):
                 self.spawn([ctest_exe, ".", "--output-on-failure"] + ctest_args)
         os.chdir(str(cwd))
 
