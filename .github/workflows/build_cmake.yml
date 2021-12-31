@@ -54,7 +54,6 @@ jobs:
 #      run:  python do.py  3.2.4 3.2.4 1  auto no tempbuilddir2
       run:  python do.py  3.2.5 windowsapi 1  auto no tempbuilddir2
 
-
   #mingw:
     #name: "windows-latest  ${{ matrix.sys }}"
     #runs-on: windows-latest
