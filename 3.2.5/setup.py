@@ -260,6 +260,7 @@ class hm3_build_ext(build_ext_orig):
         ctest_exe = self.get_ctest_exe()
         cmake_args = [
             "CMakeLists.txt",
+            "-DHEPMC3_BUILD_EXAMPLES:BOOL=ON",
             "-DHEPMC3_INSTALL_INTERFACES:BOOL=ON",
             "-DHEPMC3_ENABLE_SEARCH:BOOL=ON",
             "-DHEPMC3_BUILD_DOCS:BOOL=OFF",
@@ -272,10 +273,6 @@ class hm3_build_ext(build_ext_orig):
         ps = platform.system()
         bits = platform.architecture()[0]
         # Workaround for the manulinux
-        if ps != "Windows" or (os.environ.get('MSYSTEM') is not None):
-            cmake_args.append("-DHEPMC3_BUILD_EXAMPLES:BOOL=ON")
-        else:
-            cmake_args.append("-DHEPMC3_BUILD_EXAMPLES:BOOL=OFF")
         if ps == "Linux":
             cmake_args.append("-DCMAKE_POSITION_INDEPENDENT_CODE=ON")
             cmake_args.append("-DHEPMC3_USE_STATIC_LIBS_FOR_PYTHON=ON")
