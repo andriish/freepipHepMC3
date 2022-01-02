@@ -311,8 +311,7 @@ class hm3_build_ext(build_ext_orig):
                 ctest_args.append("-C")
                 ctest_args.append("Debug")
                 ctest_args.append("-j1")
-            # Travis+Windows bug?
-            if ps != "Darwin":
+            if ps != "Darwin" and (os.environ.get('MSYSTEM') is  None):
                 self.spawn([ctest_exe, ".", "--output-on-failure"] + ctest_args)
         os.chdir(str(cwd))
 
